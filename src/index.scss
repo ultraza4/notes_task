@@ -1,6 +1,30 @@
 .createNote__container {
     margin-top: 20px;
 }
+
 .Sign_Time {
+    display: flex;
+    align-items: center;
     margin-top: 20px;
+
+    .sign_textfield {
+        width: 70%;
+        margin-right: 20px;
+    }
+
+    .timezone_textfield {
+        width: 30%;
+    }
+}
+
+.send_button {
+    margin-top: 10px;
+    display: flex;
+    justify-content: right;
+}
+
+.notes {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
