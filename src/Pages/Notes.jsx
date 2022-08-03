@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Note } from '../components/Note';
 
-function Notes(props) {
-    
+function Notes() {
+    const notes = useSelector(state => state.notes.notes)
+    useEffect(() => {
+
+    }, [])
     return (
         <div className='notes'>
-            <Note id='1' sign='Kagarman Azamat' time='20555' text='Hello mother father' />
-            <Note id='1' sign='Kagarman Azamat' time='20555' text='Hello mother father' />
-            <Note id='1' sign='Kagarman Azamat' time='20555' text='Hello mother father' />
-            <Note id='1' sign='Kagarman Azamat' time='20555' text='Hello mother father' />
+            {notes.map((note) => {
+                return (
+                    <Note key={note.id} id={note.id} sign={note.sign} time={note.time} text={note.text} />
+                )
+            })}
         </div>
     );
 }

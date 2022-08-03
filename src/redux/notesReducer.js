@@ -1,22 +1,22 @@
-const defaultState = {
-   notes: [
-      {
-         id: 1,
-         sign: "Default User",
-         time: "02/08/2022",
-         text: "Hello mother father"
-      },
-      {
-         id: 2,
-         sign: "Default User 2",
-         time: "02/08/2022",
-         text: "Hello mother father"
-      }
-   ]
+export const ADD_NOTE = "ADD_NOTE";
+
+const initialState = {
+   notes: []
 }
 
-export const notesReducer = (state = defaultState, action) => {
+if (window.localStorage.getItem('notes')) {
+   initialState.notes = JSON.parse(localStorage.getItem('notes'))
+} else {
+   initialState.notes = []
+}
+
+
+export const notesReducer = (state = initialState, action) => {
    switch (action.type) {
+      case ADD_NOTE:
+         return {
+            notes: [...state.notes, action.payload]
+         }
       default:
          return state;
    }

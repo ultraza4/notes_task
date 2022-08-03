@@ -4,7 +4,7 @@ import { notesReducer } from "./notesReducer";
 import thunk from "redux-thunk";
 
 const rootReducer = {
-   notesReducer: notesReducer
+   notes: notesReducer
 }
 
 export const store = configureStore({
