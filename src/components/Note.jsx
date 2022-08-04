@@ -6,11 +6,11 @@ import Typography from '@mui/material/Typography';
 
 export const Note = ({ id, sign, text, time }) => {
    return (
-      <div>
+      <div className="note-container">
          <Card sx={{ minWidth: 300, maxWidth: 300, mt: 1.5, mr: 3 }}>
             <CardContent>
                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                  Подпись автора {sign}
+                  {sign}
                </Typography>
                <Typography variant="h5" component="div">
                   Запись № {id}
