@@ -6,18 +6,18 @@ import MenuItem from '@mui/material/MenuItem';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToNotes } from '../redux/actions/notesActions';
+import { addToNotes, addLastOptions } from '../redux/actions/notesActions';
 
 function CreateNote() {
-
     const dispatch = useDispatch()
     const notes = useSelector(state => state.notes.notes)
+    const lastOptions = useSelector(state => state.notes.lastOptions)
+
     const [loading, setLoading] = useState(true)
     const [text, setText] = useState('')
-    const [sign, setSign] = useState('')
-    const [timeZone, setTimeZone] = useState('')
+    const [sign, setSign] = useState(lastOptions.lastSign)
+    const [timeZone, setTimeZone] = useState(lastOptions.lastTimeZone)
     const [timeZones, setTimeZones] = useState([])
-    // const [currentTime, setCurrentTime] = useState('')
 
     const id = notes.length + 1;
     const textHandler = (e) => {
@@ -25,9 +25,11 @@ function CreateNote() {
     };
     const signHandler = (e) => {
         setSign(e.target.value)
+        //dispatch(addLastOptions({sign,timeZone}))
     };
     const timeZoneHandler = (e) => {
         setTimeZone(e.target.value)
+        //dispatch(addLastOptions({sign,timeZone}))
     };
 
     const handleSubmit = (e) => {
@@ -40,7 +42,8 @@ function CreateNote() {
                 dispatch(addToNotes({ id, text, sign, time }));
                 setLoading(false)
             })
-            .catch(err => console.log("Axios err: ", err))
+            .catch(err => alert("Axios err: " + err))
+        setText("")
     }
 
     useEffect(() => {
