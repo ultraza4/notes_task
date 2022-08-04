@@ -6,7 +6,8 @@ import MenuItem from '@mui/material/MenuItem';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToNotes, addLastOptions } from '../redux/actions/notesActions';
+import { addToNotes } from '../redux/actions/notesActions';
+import { addLastOptions } from '../redux/actions/lastOptionAction';
 
 function CreateNote() {
     const dispatch = useDispatch()
@@ -25,11 +26,11 @@ function CreateNote() {
     };
     const signHandler = (e) => {
         setSign(e.target.value)
-        //dispatch(addLastOptions({sign,timeZone}))
+        dispatch(addLastOptions(sign,timeZone))
     };
     const timeZoneHandler = (e) => {
         setTimeZone(e.target.value)
-        //dispatch(addLastOptions({sign,timeZone}))
+        dispatch(addLastOptions(sign,timeZone))
     };
 
     const handleSubmit = (e) => {
@@ -93,7 +94,7 @@ function CreateNote() {
                         >
                             {timeZones.map((zone) => {
                                 return (
-                                    <MenuItem value={zone}>{zone}</MenuItem>
+                                    <MenuItem key={zone} value={zone}>{zone}</MenuItem>
                                 )
                             })}
                         </Select>

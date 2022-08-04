@@ -3,7 +3,9 @@ export const ADD_LAST_OPTIONS = "ADD_LAST_OPTIONS"
 
 const initialState = {
    notes: [],
-   lastOptions: {}
+   lastOptions: {
+      
+   }
 }
 
 if (window.localStorage.getItem('notes')) {
