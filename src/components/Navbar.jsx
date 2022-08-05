@@ -1,20 +1,22 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
-    const [value, setValue] = React.useState(0);
+    const location = useLocation()
+
+    const [value, setValue] = useState('')
     const handleChange = (event, newValue) => {
         setValue(newValue);
-    };
+    }
 
     return (
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                <Tab label="Создать запись" component ={NavLink} to ={"/create_note"}/>
-                <Tab label="Записи" component ={NavLink} to ={"/notes"}/>
+            <Tabs value={location.pathname} onChange={handleChange} aria-label="basic tabs example">
+                <Tab value='/create_note' label="Создать запись" component={NavLink} to={"/create_note"} />
+                <Tab value='/notes' label="Записи" component={NavLink} to={"/notes"} />
             </Tabs>
         </Box>
     );

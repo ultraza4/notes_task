@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { notesReducer } from "./notesReducer";
-// import { composeWithDevTools } from '@redux-devtools/extension';
-import thunk from "redux-thunk";
 import { lastOptionsReducer } from './lastOptionsReducer';
+import { alertReducer } from './alertReducer';
+import thunk from 'redux-thunk';
 
 const rootReducer = {
    notes: notesReducer,
-   options: lastOptionsReducer
+   options: lastOptionsReducer,
+   alert: alertReducer
 }
 
 export const store = configureStore({

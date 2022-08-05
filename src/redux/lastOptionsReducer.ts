@@ -1,7 +1,10 @@
-export const ADD_LAST_OPTIONS = "ADD_LAST_OPTIONS"
+import { LastOptionsState, LastOptionsAction, LastOptionsActions } from "../types/lastOptions"
 
-const initialState = {
-   lastOptions: {}
+const initialState: LastOptionsState = {
+   lastOptions: {
+      lastSign: "",
+      lastTimeZone: ""
+   }
 }
 
 if (window.localStorage.getItem('lastOptions')) {
@@ -10,9 +13,9 @@ if (window.localStorage.getItem('lastOptions')) {
    initialState.lastOptions = { lastSign: "", lastTimeZone: "" }
 }
 
-export const lastOptionsReducer = (state = initialState, action) => {
+export const lastOptionsReducer = (state = initialState, action: LastOptionsAction): LastOptionsState => {
    switch (action.type) {
-      case ADD_LAST_OPTIONS:
+      case LastOptionsActions.ADD_LAST_OPTIONS:
          return {
             ...state,
             lastOptions: action.payload

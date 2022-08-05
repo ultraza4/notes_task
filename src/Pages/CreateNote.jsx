@@ -9,11 +9,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToNotes } from '../redux/actions/notesActions';
 import { setTotalCount } from '../redux/notesReducer'
 import { addLastOptions } from '../redux/actions/lastOptionsAction';
+import { SendAlert } from '../components/Alert';
+import { setErrorAlert, setSuccessAlert } from '../redux/alertReducer';
 
 function CreateNote() {
     const dispatch = useDispatch()
     const notes = useSelector(state => state.notes.notes)
     const lastOptions = useSelector(state => state.options.lastOptions)
+    const alertState = useSelector(state => state.alert)
 
     const [loading, setLoading] = useState(true)
     const [text, setText] = useState('')
@@ -21,7 +24,7 @@ function CreateNote() {
     const [timeZone, setTimeZone] = useState(lastOptions.lastTimeZone)
     const [timeZones, setTimeZones] = useState([])
     const id = notes.length + 1;
-    
+
     const textHandler = (e) => {
         setText(e.target.value)
     };
@@ -44,9 +47,14 @@ function CreateNote() {
                 dispatch(addToNotes({ id, text, sign, time }));
                 dispatch(setTotalCount(notes.length + 1))
                 setLoading(false)
+                setText("")
+                dispatch(setSuccessAlert(true))
             })
-            .catch(err => alert("Axios err: " + err))
-        setText("")
+            .catch(err => {
+                dispatch(setErrorAlert(true, err))
+                setLoading(false)
+                alert(err)
+            })
     }
 
     useEffect(() => {
@@ -60,7 +68,11 @@ function CreateNote() {
 
     return (
         <div className='createNote__container'>
-            <form onSubmit={handleSubmit}>
+            <SendAlert
+                visible={alertState.visible}
+                severity={alertState.severity}
+                text={alertState.alertText} />
+            <form className='form' onSubmit={handleSubmit}>
                 <TextField
                     id="outlined-multiline-static"
                     label="Запись"

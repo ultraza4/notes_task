@@ -1,4 +1,4 @@
-import { ADD_LAST_OPTIONS } from "../lastOptionsReducer"
+import { LastOptionsActions } from "../../types/lastOptions";
 
 export const addLastOptions = (sign, timeZone) => async dispatch => {
 
@@ -9,7 +9,7 @@ export const addLastOptions = (sign, timeZone) => async dispatch => {
    lastOptions.lastSign = sign;
    lastOptions.lastTimeZone = timeZone;
 
-   dispatch({ type: ADD_LAST_OPTIONS, payload: lastOptions })
+   dispatch({ type: LastOptionsActions.ADD_LAST_OPTIONS, payload: lastOptions })
 
    localStorage.setItem('lastOptions', JSON.stringify(lastOptions))
 }

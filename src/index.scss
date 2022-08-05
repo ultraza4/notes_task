@@ -1,5 +1,13 @@
 .createNote__container {
     margin-top: 20px;
+
+    .showAlert {
+        display: block;
+    }
+
+    .hideAlert {
+        display: none;
+    }
 }
 
 .Sign_Time {
@@ -21,6 +29,10 @@
     margin-top: 10px;
     display: flex;
     justify-content: right;
+}
+
+.form {
+    margin-top: 20px
 }
 
 .notes {
