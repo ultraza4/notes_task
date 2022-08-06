@@ -106,7 +106,7 @@ function CreateNote() {
                         />
                     </div>
                     <div className='timezone_textfield'>
-                        <FormControl>
+                        <FormControl style={{ minWidth: 250 }}>
                             <InputLabel htmlFor='demo-simple-select-label'>Точное время по</InputLabel>
                             <Select
                                 defaultValue=""
