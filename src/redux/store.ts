@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { notesReducer } from "./notesReducer";
 import { lastOptionsReducer } from './lastOptionsReducer';
 import { alertReducer } from './alertReducer';
@@ -10,7 +10,16 @@ const rootReducer = {
    alert: alertReducer
 }
 
+const Reducer = combineReducers({
+   notes: notesReducer,
+   options: lastOptionsReducer,
+   alert: alertReducer
+})
+   
+
 export const store = configureStore({
    reducer: rootReducer,
    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
 });
+
+export type RootState = ReturnType<typeof Reducer>

@@ -1,7 +1,7 @@
 export interface LastOptionsState {
    lastOptions: LastOptions
 }
-interface LastOptions {
+export interface LastOptions {
    lastSign: string,
    lastTimeZone: string
 }

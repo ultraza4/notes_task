@@ -1,8 +1,6 @@
-export const ADD_NOTE = "ADD_NOTE";
-export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
-export const SET_TOTAL_COUNT = "SET_TOTAL_COUNT";
+import { NotesState, NotesAction, NotesActionsTypes } from "../types/notes"
 
-const initialState = {
+const initialState: NotesState = {
    notes: [],
    currentPage: 1,
    perPage: 6,
@@ -16,19 +14,19 @@ if (window.localStorage.getItem('notes')) {
    initialState.notes = []
 }
 
-export const notesReducer = (state = initialState, action) => {
+export const notesReducer = (state = initialState, action: NotesAction): NotesState => {
    switch (action.type) {
-      case ADD_NOTE:
+      case NotesActionsTypes.ADD_NOTE:
          return {
             ...state,
             notes: [...state.notes, action.payload]
          }
-      case SET_CURRENT_PAGE:
+      case NotesActionsTypes.SET_CURRENT_PAGE:
          return {
             ...state,
             currentPage: action.payload
          }
-      case SET_TOTAL_COUNT:
+      case NotesActionsTypes.SET_TOTAL_COUNT:
          return {
             ...state,
             totalCount: action.payload
@@ -39,5 +37,5 @@ export const notesReducer = (state = initialState, action) => {
 }
 
 
-export const setCurrentPage = (page) => ({ type: SET_CURRENT_PAGE, payload: page })
-export const setTotalCount = (count) => ({ type: SET_TOTAL_COUNT, payload: count })
+export const setCurrentPage = (page: number): NotesAction => ({ type: NotesActionsTypes.SET_CURRENT_PAGE, payload: page })
+export const setTotalCount = (count: number): NotesAction => ({ type: NotesActionsTypes.SET_TOTAL_COUNT, payload: count })

@@ -32,6 +32,6 @@ export const alertReducer = (state = initialState, action: AlertAction): AlertSt
 }
 
 
-export const setSuccessAlert = (visible) => ({ type: AlertActionTypes.SET_SUCCESS, payload: visible })
-export const setErrorAlert = (visible) => ({ type: AlertActionTypes.SET_ERROR, payload: visible })
-export const closeAlert = (visible) => ({ type: AlertActionTypes.CLOSE_ALERT, payload: visible })
+export const setSuccessAlert = (visible: boolean): AlertAction => ({ type: AlertActionTypes.SET_SUCCESS, payload: visible })
+export const setErrorAlert = (visible: boolean): AlertAction => ({ type: AlertActionTypes.SET_ERROR, payload: visible })
+export const closeAlert = (visible: boolean): AlertAction => ({ type: AlertActionTypes.CLOSE_ALERT, payload: visible })

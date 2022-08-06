@@ -1,8 +1,10 @@
+import { LastOptions } from './../../types/lastOptions';
 import { LastOptionsActions } from "../../types/lastOptions";
 
-export const addLastOptions = (sign, timeZone) => async dispatch => {
+export const addLastOptions = (sign: string, timeZone: string) => async (dispatch:
+   (arg0: { type: LastOptionsActions.ADD_LAST_OPTIONS; payload: LastOptions }) => void) => {
 
-   const lastOptions = localStorage.getItem('lastOptions')
+   const lastOptions: LastOptions = localStorage.getItem('lastOptions')
       ? JSON.parse(localStorage.getItem('lastOptions'))
       : {}
 

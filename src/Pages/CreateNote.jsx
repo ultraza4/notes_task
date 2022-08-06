@@ -11,12 +11,13 @@ import { setTotalCount } from '../redux/notesReducer'
 import { addLastOptions } from '../redux/actions/lastOptionsAction';
 import { SendAlert } from '../components/Alert';
 import { setErrorAlert, setSuccessAlert } from '../redux/alertReducer';
+import { RootState } from '../redux/store';
 
 function CreateNote() {
     const dispatch = useDispatch()
-    const notes = useSelector(state => state.notes.notes)
-    const lastOptions = useSelector(state => state.options.lastOptions)
-    const alertState = useSelector(state => state.alert)
+    const notes = useSelector((state) => state.notes.notes)
+    const lastOptions = useSelector((state) => state.options.lastOptions)
+    const alertState = useSelector((state) => state.alert)
 
     const [loading, setLoading] = useState(true)
     const [text, setText] = useState('')
@@ -44,14 +45,14 @@ function CreateNote() {
         axios.get(`https://worldtimeapi.org/api/timezone/${timeZone}`)
             .then((res) => {
                 const time = res.data.datetime;
-                dispatch(addToNotes({ id, text, sign, time }));
+                dispatch(addToNotes({ id, text, sign, time, timeZone }));
                 dispatch(setTotalCount(notes.length + 1))
                 setLoading(false)
                 setText("")
                 dispatch(setSuccessAlert(true))
             })
             .catch(err => {
-                dispatch(setErrorAlert(true, err))
+                dispatch(setErrorAlert(true))
                 setLoading(false)
                 alert(err)
             })
