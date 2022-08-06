@@ -1,10 +1,9 @@
-import React from "react";
+import React, { FC } from "react";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
-
-export const Note = ({ id, sign, text, time }) => {
+export const Note = ({ id, sign, text, time, timeZone }) => {
    return (
       <div className="note-container">
          <Card sx={{ minWidth: 300, maxWidth: 300, mt: 1.5, mr: 3 }}>

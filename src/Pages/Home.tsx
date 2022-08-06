@@ -1,9 +1,9 @@
 import React from 'react';
 
-function Home(props) {
+function Home() {
     return (
         <div>
-            <h2>Добро пожаловать в Notes Creator</h2> 
+            <h2> Notes Creator</h2>
         </div>
     );
 }

@@ -31,6 +31,11 @@ export const notesReducer = (state = initialState, action: NotesAction): NotesSt
             ...state,
             totalCount: action.payload
          }
+      case NotesActionsTypes.SET_PER_PAGE:
+         return {
+            ...state,
+            perPage: action.payload
+         }
       default:
          return state;
    }
@@ -39,3 +44,4 @@ export const notesReducer = (state = initialState, action: NotesAction): NotesSt
 
 export const setCurrentPage = (page: number): NotesAction => ({ type: NotesActionsTypes.SET_CURRENT_PAGE, payload: page })
 export const setTotalCount = (count: number): NotesAction => ({ type: NotesActionsTypes.SET_TOTAL_COUNT, payload: count })
+export const setPerPage = (perPage: number): NotesAction => ({ type: NotesActionsTypes.SET_PER_PAGE, payload: perPage })

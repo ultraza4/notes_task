@@ -1,8 +1,8 @@
-import { Note, NotesAction } from './../../types/notes';
+import { Note, NotesAction, AddNoteActionType } from './../../types/notes';
 import { NotesActionsTypes } from "../../types/notes"
+import { Dispatch } from 'redux';
 
-export const addToNotes = ({ id, text, sign, time, timeZone }) => async (
-   dispatch: (arg0: { type: NotesActionsTypes.ADD_NOTE; payload: Note }) => void) => {
+export const addToNotes = ({ id, text, sign, time, timeZone }: Note) => async (dispatch: Dispatch<AddNoteActionType>) => {
 
    const notes: Array<Note> = localStorage.getItem('notes')
       ? JSON.parse(localStorage.getItem('notes'))
@@ -11,7 +11,6 @@ export const addToNotes = ({ id, text, sign, time, timeZone }) => async (
    notes.push({ id, text, sign, time, timeZone })
 
    dispatch({ type: NotesActionsTypes.ADD_NOTE, payload: { id, text, sign, time, timeZone } })
-
    localStorage.setItem('notes', JSON.stringify(notes))
 }
 

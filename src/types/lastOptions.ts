@@ -3,12 +3,13 @@ export interface LastOptionsState {
 }
 export interface LastOptions {
    lastSign: string,
-   lastTimeZone: string
+   lastTimeZone: string,
+   lastPerPage: number
 }
 export enum LastOptionsActions {
    ADD_LAST_OPTIONS = 'ADD_LAST_OPTIONS'
 }
-interface AddLastOptionAction {
+export interface AddLastOptionAction {
    type: LastOptionsActions.ADD_LAST_OPTIONS,
    payload: LastOptions
 }

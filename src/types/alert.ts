@@ -1,5 +1,7 @@
+import { AlertColor } from "@mui/material"
+
 export interface AlertState {
-   severity: string,
+   alert: AlertColor,
    alertText: string,
    visible: boolean
 }

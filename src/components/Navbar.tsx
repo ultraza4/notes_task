@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { NavLink, useLocation } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar: FC = () => {
     const location = useLocation()
 
     const [value, setValue] = useState('')
-    const handleChange = (event, newValue) => {
+    const handleChange = (event: React.SyntheticEvent, newValue: string) => {
         setValue(newValue);
     }
 

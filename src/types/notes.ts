@@ -1,5 +1,3 @@
-import { PayloadAction } from "@reduxjs/toolkit"
-
 export interface NotesState {
    notes: Array<Note>,
    currentPage: number,
@@ -18,22 +16,27 @@ export type Note = {
 export enum NotesActionsTypes {
    ADD_NOTE = "ADD_NOTE",
    SET_CURRENT_PAGE = "SET_CURRENT_PAGE",
-   SET_TOTAL_COUNT = "SET_TOTAL_COUNT"
+   SET_TOTAL_COUNT = "SET_TOTAL_COUNT",
+   SET_PER_PAGE = "SET_PER_PAGE"
 }
 
-interface AddNoteActionType {
+export interface AddNoteActionType {
    type: NotesActionsTypes.ADD_NOTE,
    payload: Note
 }
 
-interface SetCurrentPageActionType {
+export interface SetCurrentPageActionType {
    type: NotesActionsTypes.SET_CURRENT_PAGE,
    payload: number
 }
 
-interface SetTotalCountActionType {
+export interface SetTotalCountActionType {
    type: NotesActionsTypes.SET_TOTAL_COUNT,
    payload: number
 }
+export interface SetPerPageActionType {
+   type: NotesActionsTypes.SET_PER_PAGE,
+   payload: number
+}
 
-export type NotesAction = AddNoteActionType | SetCurrentPageActionType | SetTotalCountActionType
+export type NotesAction = AddNoteActionType | SetCurrentPageActionType | SetTotalCountActionType | SetPerPageActionType

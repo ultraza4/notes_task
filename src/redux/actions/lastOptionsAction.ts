@@ -1,8 +1,8 @@
-import { LastOptions } from './../../types/lastOptions';
+import { LastOptions, AddLastOptionAction } from './../../types/lastOptions';
 import { LastOptionsActions } from "../../types/lastOptions";
+import { Dispatch } from 'redux';
 
-export const addLastOptions = (sign: string, timeZone: string) => async (dispatch:
-   (arg0: { type: LastOptionsActions.ADD_LAST_OPTIONS; payload: LastOptions }) => void) => {
+export const addLastOptions = (sign: string, timeZone: string, lastPerPage: number) => async (dispatch: Dispatch<AddLastOptionAction>) => {
 
    const lastOptions: LastOptions = localStorage.getItem('lastOptions')
       ? JSON.parse(localStorage.getItem('lastOptions'))
@@ -10,6 +10,7 @@ export const addLastOptions = (sign: string, timeZone: string) => async (dispatc
 
    lastOptions.lastSign = sign;
    lastOptions.lastTimeZone = timeZone;
+   lastOptions.lastPerPage = lastPerPage;
 
    dispatch({ type: LastOptionsActions.ADD_LAST_OPTIONS, payload: lastOptions })
 

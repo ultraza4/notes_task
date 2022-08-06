@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import axios from 'axios';
 import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
-import { useDispatch, useSelector } from 'react-redux';
 import { addToNotes } from '../redux/actions/notesActions';
 import { setTotalCount } from '../redux/notesReducer'
 import { addLastOptions } from '../redux/actions/lastOptionsAction';
 import { SendAlert } from '../components/Alert';
 import { setErrorAlert, setSuccessAlert } from '../redux/alertReducer';
-import { RootState } from '../redux/store';
+import { useAppDispatch, useAppSelector } from '../hooks/hooks';
+import { FormControl, InputLabel } from '@mui/material';
 
 function CreateNote() {
-    const dispatch = useDispatch()
-    const notes = useSelector((state) => state.notes.notes)
-    const lastOptions = useSelector((state) => state.options.lastOptions)
-    const alertState = useSelector((state) => state.alert)
+    const dispatch = useAppDispatch()
+
+    const notes = useAppSelector(state => state.notes.notes)
+    const lastOptions = useAppSelector(state => state.options.lastOptions)
+    const alertState = useAppSelector(state => state.alert)
 
     const [loading, setLoading] = useState(true)
     const [text, setText] = useState('')
@@ -26,22 +27,21 @@ function CreateNote() {
     const [timeZones, setTimeZones] = useState([])
     const id = notes.length + 1;
 
-    const textHandler = (e) => {
-        setText(e.target.value)
+    const textHandler = (event: ChangeEvent<HTMLInputElement>): void => {
+        setText(event.target.value)
     };
-    const signHandler = (e) => {
-        setSign(e.target.value)
-        dispatch(addLastOptions(e.target.value, timeZone))
-    };
-    const timeZoneHandler = (e) => {
-        setTimeZone(e.target.value)
-        dispatch(addLastOptions(sign, e.target.value))
+    const signHandler = (event: ChangeEvent<HTMLInputElement>): void => {
+        setSign(event.target.value)
+        dispatch(addLastOptions(event.target.value, timeZone, lastOptions.lastPerPage))
+    }
+    const timeZoneHandler = (event: ChangeEvent<HTMLInputElement>): void => {
+        setTimeZone(event.target.value)
+        dispatch(addLastOptions(sign, event.target.value, lastOptions.lastPerPage))
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
+    const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
+        event.preventDefault()
         setLoading(true)
-
         axios.get(`https://worldtimeapi.org/api/timezone/${timeZone}`)
             .then((res) => {
                 const time = res.data.datetime;
@@ -57,25 +57,30 @@ function CreateNote() {
                 alert(err)
             })
     }
-
-    useEffect(() => {
-        const getTimeZones = async () => {
+    const getTimeZones = async (): Promise<void> => {
+        try {
             let res = await axios.get("https://worldtimeapi.org/api/timezone");
             setTimeZones(res.data);
             setLoading(false);
+        } catch (err) {
+            alert(err)
         }
-        getTimeZones().catch(console.error);
+    }
+
+    useEffect(() => {
+        getTimeZones()
     }, [])
 
     return (
         <div className='createNote__container'>
             <SendAlert
                 visible={alertState.visible}
-                severity={alertState.severity}
-                text={alertState.alertText} />
+                alert={alertState.alert}
+                alertText={alertState.alertText} />
             <form className='form' onSubmit={handleSubmit}>
                 <TextField
                     id="outlined-multiline-static"
+                    name='note-text'
                     label="Запись"
                     multiline
                     rows={6}
@@ -91,6 +96,9 @@ function CreateNote() {
                             required
                             id="outlined-required"
                             label="Подпись"
+                            inputProps={{
+                                maxLength: 100
+                            }}
                             value={sign}
                             onChange={signHandler}
                             placeholder="Введите ФИО"
@@ -98,21 +106,24 @@ function CreateNote() {
                         />
                     </div>
                     <div className='timezone_textfield'>
-                        <Select
-                            defaultValue=""
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={timeZone}
-                            label="Точное время по"
-                            onChange={timeZoneHandler}
-                            fullWidth
-                        >
-                            {timeZones.map((zone, index) => {
-                                return (
-                                    <MenuItem key={index} value={zone}>{zone}</MenuItem>
-                                )
-                            })}
-                        </Select>
+                        <FormControl>
+                            <InputLabel htmlFor='demo-simple-select-label'>Точное время по</InputLabel>
+                            <Select
+                                defaultValue=""
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={timeZone}
+                                label="Точное время по"
+                                onChange={timeZoneHandler}
+                                fullWidth
+                            >
+                                {timeZones.map((zone, index) => {
+                                    return (
+                                        <MenuItem key={index} value={zone}>{zone}</MenuItem>
+                                    )
+                                })}
+                            </Select>
+                        </FormControl>
                     </div>
 
                 </div>

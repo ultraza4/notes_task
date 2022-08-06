@@ -9,12 +9,12 @@ import Home from "./Pages/Home";
 const App = () => {
    return (<>
       <div className="container">
-      <Navbar />
+         <Navbar />
          <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/create_note" element={<CreateNote />} />
             <Route path="/notes" element={<Notes />} />
-          </Routes>
+         </Routes>
       </div>
    </>)
 }

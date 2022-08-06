@@ -2,7 +2,7 @@ import { AlertState, AlertAction, AlertActionTypes } from "../types/alert"
 
 
 const initialState: AlertState = {
-   severity: 'success',
+   alert: 'success',
    alertText: 'Запись успешно создана',
    visible: false
 }
@@ -11,13 +11,13 @@ export const alertReducer = (state = initialState, action: AlertAction): AlertSt
    switch (action.type) {
       case AlertActionTypes.SET_ERROR:
          return {
-            severity: 'error',
+            alert: 'error',
             alertText: "Что-то пошло не так, запись не создана",
             visible: action.payload
          }
       case AlertActionTypes.SET_SUCCESS:
          return {
-            severity: 'success',
+            alert: 'success',
             alertText: 'Запись успешно создана',
             visible: action.payload
          }
