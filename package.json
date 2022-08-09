@@ -2,11 +2,14 @@
   "name": "notes_task",
   "version": "1.0.0",
   "description": "",
+  "homepage": "https://ultraza4.github.io/notes_task/",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "start": "webpack-dev-server --open"
+    "start": "webpack-dev-server --open",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "author": "",
   "license": "ISC",
